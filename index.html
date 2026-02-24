@@ -1,78 +1,111 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My First Calculator</title>
-<style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My First Calculator</title>
+
+  <style>
     body {
-        background-color: black;
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
+      background-color: black;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
 
     .calculator {
-        width: 300px;
+      width: 300px;
     }
 
     input {
-        width: 100%;
-        padding: 20px;
-        font-size: 24px;
-        margin-bottom: 10px;
-        text-align: right;
-        border: none;
-        border-radius: 10px;
+      width: 100%;
+      padding: 20px;
+      font-size: 24px;
+      margin-bottom: 10px;
+      text-align: right;
+      border: none;
+      border-radius: 10px;
+      box-sizing: border-box;
     }
 
     .buttons {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
     }
 
     button {
-        padding: 20px;
-        font-size: 22px;
-        border: none;
-        border-radius: 50%;
-        color: white;
-        background-color: #333;
+      padding: 20px;
+      font-size: 22px;
+      border: none;
+      border-radius: 50%;
+      color: white;
+      background-color: #333;
+      cursor: pointer;
     }
 
     button.operator {
-        background-color: orange;
+      background-color: orange;
+      color: black;
+      font-weight: bold;
     }
 
     #result {
-        color: white;
-        font-size: 24px;
-        text-align: right;
-        margin-top: 10px;
+      color: white;
+      font-size: 24px;
+      text-align: right;
+      margin-top: 12px;
+      min-height: 28px;
     }
-</style>
+  </style>
 </head>
+
 <body>
-
-<div class="calculator">
-
-    <input type="number" id="num1" placeholder="First number">
-    <input type="number" id="num2" placeholder="Second number">
+  <div class="calculator">
+    <input type="number" id="num1" placeholder="First number" inputmode="decimal">
+    <input type="number" id="num2" placeholder="Second number" inputmode="decimal">
 
     <div class="buttons">
-        <button onclick="calculate('+')" class="operator">+</button>
-        <button onclick="calculate('-')" class="operator">-</button>
-        <button onclick="calculate('*')" class="operator">*</button>
-        <button onclick="calculate('/')" class="operator">/</button>
+      <button class="operator" onclick="calculate('+')">+</button>
+      <button class="operator" onclick="calculate('-')">-</button>
+      <button class="operator" onclick="calculate('*')">*</button>
+      <button class="operator" onclick="calculate('/')">/</button>
     </div>
 
     <div id="result">Result:</div>
+  </div>
 
-</div>
+  <script>
+    function calculate(operator) {
+      const n1 = parseFloat(document.getElementById("num1").value);
+      const n2 = parseFloat(document.getElementById("num2").value);
+      let output;
 
+      if (Number.isNaN(n1) || Number.isNaN(n2)) {
+        output = "Invalid input";
+      } else {
+        switch (operator) {
+          case "+":
+            output = n1 + n2;
+            break;
+          case "-":
+            output = n1 - n2;
+            break;
+          case "*":
+            output = n1 * n2;
+            break;
+          case "/":
+            output = (n2 !== 0) ? (n1 / n2) : "Cannot divide by 0";
+            break;
+          default:
+            output = "";
+        }
+      }
+
+      document.getElementById("result").innerText = "Result: " + output;
+    }
+  </script>
 </body>
-
 </html>
